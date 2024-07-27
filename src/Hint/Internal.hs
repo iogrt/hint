@@ -19,10 +19,26 @@
 
 
 module Hint.Internal (
-    onCompilationError
+    onCompilationError,
+    addPhantomModule,
+    installPhantomModule
 ) where
 
 import Hint.Typecheck (onCompilationError)
+import Hint.Context (addPhantomModule, setContextModules, getContext)
+
+
+import Hint.Base (runGhc, findModule, PhantomModule(..))
+
+
+installPhantomModule f = do
+       phantomModule <- addPhantomModule f 
+       phantom_mods <- do
+           phantom_mod <- findModule (pmName phantomModule)
+           pure [phantom_mod]
+       (old_top_level, _) <- runGhc getContext
+       let new_top_level = phantom_mods ++ old_top_level
+       runGhc $ setContextModules new_top_level []-- regularMods : have to somehow get previous, that is if context gets lost
 
 
 

@@ -6,6 +6,9 @@ module Hint.Context (
 
       PhantomModule(..),
       cleanPhantomModules,
+      addPhantomModule,
+      getContext,
+      setContextModules,
 
       supportString, supportShow
 ) where
