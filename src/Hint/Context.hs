@@ -8,7 +8,7 @@ module Hint.Context (
       cleanPhantomModules,
       addPhantomModule,
       getContext,
-      setContextModules,
+      setContext,
 
       supportString, supportShow
 ) where

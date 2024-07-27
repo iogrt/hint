@@ -25,7 +25,7 @@ module Hint.Internal (
 ) where
 
 import Hint.Typecheck (onCompilationError)
-import Hint.Context (addPhantomModule, setContextModules, getContext)
+import Hint.Context (addPhantomModule, setContext, getContext)
 
 
 import Hint.Base (runGhc, findModule, PhantomModule(..))
@@ -39,7 +39,7 @@ installPhantomModule f = do
        (old_top_level, old_modules) <- runGhc getContext
        let new_top_level = phantom_mods ++ old_top_level
        -- Get previous context by calling "allModulesInContext!"
-       runGhc $ setContextModules new_top_level old_modules-- regularMods : have to somehow get previous, that is if context gets lost
+       runGhc $ setContext new_top_level old_modules-- regularMods : have to somehow get previous, that is if context gets lost
 
 
 
