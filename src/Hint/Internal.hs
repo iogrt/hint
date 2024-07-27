@@ -38,6 +38,7 @@ installPhantomModule f = do
            pure [phantom_mod]
        (old_top_level, _) <- runGhc getContext
        let new_top_level = phantom_mods ++ old_top_level
+       -- Get previous context by calling "allModulesInContext!"
        runGhc $ setContextModules new_top_level []-- regularMods : have to somehow get previous, that is if context gets lost
 
 

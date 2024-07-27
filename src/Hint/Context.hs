@@ -50,7 +50,7 @@ type ModuleText = String
 -- with the system time with not enough resolution), we also include the process id
 newPhantomModule :: MonadInterpreter m => m PhantomModule
 newPhantomModule =
-    do n <- liftIO randomIO
+    do n <- liftIO $ randomRIO (0, 9) -- smaller numbers so that filename doesn't grow too much
        p <- liftIO Compat.getPID
        (ls,is) <- allModulesInContext
        let nums = concat [show (abs n::Int), show p, filter isDigit $ concat (ls ++ is)]
